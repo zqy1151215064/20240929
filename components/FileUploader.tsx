@@ -1,4 +1,4 @@
-import {useUploadPreviewContext} from "@/app/components/UploadPreviewProvider";
+import {useUploadPreviewContext} from "@/components/UploadPreviewProvider";
 import {Icon} from "@iconify/react";
 import React from "react";
 

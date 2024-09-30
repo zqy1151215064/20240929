@@ -1,22 +1,37 @@
 "use client";
 
 import React from "react";
-import UploadPreviewProvider from "@/app/components/UploadPreviewProvider";
-import FileUploader from "@/app/components/FileUploader";
-import FilePreview from "@/app/components/FilePreview";
-import {pdfjs} from "react-pdf";
-import 'react-pdf/dist/Page/TextLayer.css';
-import 'react-pdf/dist/Page/AnnotationLayer.css';
+import UploadPreviewProvider from "@/components/UploadPreviewProvider";
+import FileUploader from "@/components/FileUploader";
+import FilePreview from "@/components/FilePreview";
 
 
-pdfjs.GlobalWorkerOptions.workerSrc = new URL(
-    'pdfjs-dist/build/pdf.worker.min.mjs',
-    import.meta.url,
-).toString();
+if (typeof Promise.withResolvers === "undefined") {
+    if (typeof window !== 'undefined') {
+        // @ts-expect-error This does not exist outside of polyfill which this is doing
+        window.Promise.withResolvers = function () {
+            let resolve, reject
+            const promise = new Promise((res, rej) => {
+                resolve = res
+                reject = rej
+            })
+            return {promise, resolve, reject}
+        }
+    } else {
+        // @ts-expect-error This does not exist outside of polyfill which this is doing
+        global.Promise.withResolvers = function () {
+            let resolve, reject
+            const promise = new Promise((res, rej) => {
+                resolve = res
+                reject = rej
+            })
+            return {promise, resolve, reject}
+        }
+    }
+}
+
 
 export default function Home() {
-
-
     return (
         <div className="bg-[#f7f5ee] text-black">
             <main className="container mx-auto py-20 space-y-5">
@@ -26,12 +41,10 @@ export default function Home() {
                         Simply click on a page to rotate it. You can then download your modified PDF.
                     </p>
                 </div>
-
-                    <UploadPreviewProvider>
-                        <FileUploader/>
-                        <FilePreview/>
-                    </UploadPreviewProvider>
-
+                <UploadPreviewProvider>
+                    <FileUploader/>
+                    <FilePreview/>
+                </UploadPreviewProvider>
             </main>
         </div>
     );

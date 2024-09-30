@@ -1,9 +1,22 @@
 "use client";
 
 import React, {useState} from "react";
-import {useUploadPreviewContext} from "@/app/components/UploadPreviewProvider";
-import {Document, Page} from 'react-pdf';
+import {useUploadPreviewContext} from "@/components/UploadPreviewProvider";
+import {pdfjs, Document, Page} from 'react-pdf';
 import {Icon} from "@iconify/react";
+import 'react-pdf/dist/Page/TextLayer.css';
+import 'react-pdf/dist/Page/AnnotationLayer.css';
+
+pdfjs.GlobalWorkerOptions.workerSrc = new URL(
+    'pdfjs-dist/build/pdf.worker.min.js',
+    import.meta.url,
+).toString();
+// pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
+
+const options = {
+    cMapUrl: '/cmaps/',
+    standardFontDataUrl: '/standard_fonts/',
+};
 
 const FilePreview = () => {
     const [numPages, setNumPages] = useState<number | null>(null)
@@ -34,15 +47,15 @@ const FilePreview = () => {
                 <button
                     className="shadow rounded-full p-2 flex items-center justify-center hover:scale-105 grow-0 shrink-0 disabled:opacity-50 !bg-white"
                     aria-label="Zoom in" data-microtip-position="top" role="tooltip">
-                    <Icon icon="mdi:search-plus" width="15" height="15" style={{color: 'black'}}> </Icon>
+                    <Icon icon="prime:search-plus" width="20" height="20" style={{color: 'black'}}> </Icon>
                 </button>
                 <button
                     className="shadow rounded-full p-2 flex items-center justify-center hover:scale-105 grow-0 shrink-0 disabled:opacity-50 !bg-white"
                     aria-label="Zoom in" data-microtip-position="top" role="tooltip">
-                    <Icon icon="mdi:search-minus" width="15" height="15" style={{color: 'black'}}> </Icon>
+                    <Icon icon="prime:search-minus" width="20" height="20" style={{color: 'black'}}> </Icon>
                 </button>
             </div>
-            <Document file={pdfFile} onLoadSuccess={onDocumentLoadSuccess}>
+            <Document file={pdfFile} onLoadSuccess={onDocumentLoadSuccess} options={options}>
                 <div className="flex flex-wrap justify-center">
                     {Array.from(new Array(numPages), (el, index) => (
                             <div key={`page_${index + 1}`} className="m-3" style={{maxWidth: '200px', flex: '0 0 200px',}}>

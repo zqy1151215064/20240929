@@ -39,7 +39,7 @@
 }
 
 [role~=tooltip][data-microtip-position|=top]:before {
-    background: url("/public/download.svg") no-repeat;
+    /*background: url("/public/download.svg") no-repeat;*/
     @apply h-[6px] w-[18px] mb-[5px]
 }
 
