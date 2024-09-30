@@ -1,0 +1,86 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*:root {*/
+/*  --background: #ffffff;*/
+/*  --foreground: #171717;*/
+/*}*/
+
+/*@media (prefers-color-scheme: dark) {*/
+/*  :root {*/
+/*    --background: #0a0a0a;*/
+/*    --foreground: #ededed;*/
+/*  }*/
+/*}*/
+
+/*body {*/
+/*  color: var(--foreground);*/
+/*  background: var(--background);*/
+/*  font-family: Arial, Helvetica, sans-serif;*/
+/*}*/
+
+/*@layer utilities {*/
+/*  .text-balance {*/
+/*    text-wrap: balance;*/
+/*  }*/
+/*}*/
+
+.btn {
+    @apply flex items-center appearance-none relative cursor-pointer text-center whitespace-nowrap m-0 px-3 py-2.5 text-white bg-[#ff612f] border-0 rounded text-base font-medium leading-normal not-italic
+}
+
+[aria-label][role~=tooltip] {
+    @apply relative z-[999999]
+}
+
+[role~=tooltip][data-microtip-position|=top]:before {
+    @apply transform -translate-x-1/2 bottom-full left-1/2
+}
+
+[role~=tooltip][data-microtip-position|=top]:before {
+    background: url("/public/download.svg") no-repeat;
+    @apply h-[6px] w-[18px] mb-[5px]
+}
+
+[aria-label][role~=tooltip]:after,[aria-label][role~=tooltip]:before {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    will-change: transform;
+    opacity: 0;
+    pointer-events: none;
+    transition: all .18s ease-in-out 0s;
+    position: absolute;
+    box-sizing: border-box;
+    z-index: 999999;
+    transform-origin: top
+}
+
+[aria-label][role~=tooltip]:before {
+    background-size: 100% auto !important;
+    content: "";
+}
+
+
+[role~=tooltip][data-microtip-position|=top]:after {
+    transform: translate3d(-50%,0,0);
+    bottom: 100%;
+    left: 50%
+}
+
+[role~=tooltip][data-microtip-position|=top]:after {
+    margin-bottom: 11px
+}
+
+[aria-label][role~=tooltip]:after {
+    background: hsla(0,0%,7%,.9);
+    border-radius: 4px;
+    color: #fff;
+    content: attr(aria-label);
+    font-size: 13px;
+    font-weight: normal;
+    text-transform: none;
+    padding: .5em 1em;
+    white-space: pre;
+    box-sizing: content-box
+}
