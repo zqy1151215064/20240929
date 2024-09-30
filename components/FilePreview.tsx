@@ -11,7 +11,6 @@ pdfjs.GlobalWorkerOptions.workerSrc = new URL(
     'pdfjs-dist/build/pdf.worker.min.js',
     import.meta.url,
 ).toString();
-// pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
 
 const options = {
     cMapUrl: '/cmaps/',
@@ -21,8 +20,9 @@ const options = {
 const FilePreview = () => {
     const [numPages, setNumPages] = useState<number | null>(null)
     const [rotations, setRotations] = useState<number[]>([]);
+    const [scale, setScale] = useState(1);
     const canvasRef = React.useRef<HTMLCanvasElement>(null);
-    const {pdfFile} = useUploadPreviewContext()
+    const {pdfFile, setPdfFile} = useUploadPreviewContext()
     if (!pdfFile) return null;
 
     const onDocumentLoadSuccess = ({numPages}: { numPages: number }) => {
@@ -36,22 +36,33 @@ const FilePreview = () => {
         setRotations(newRotations);
     }
 
+    const rotateAll = () => {
+        const newRotations = [...rotations];
+        for (let i = 0; i < newRotations.length; i++) {
+            newRotations[i] = (newRotations[i] + 90) % 360;
+        }
+        setRotations(newRotations);
+    }
+
+    const zoomIn = () => setScale((prevScale) => prevScale + 0.2);
+    const zoomOut = () => setScale((prevScale) => Math.max(prevScale - 0.2, 0.5));
+
     return (
         <>
             <div className="flex justify-center items-center space-x-3 selecto-ignore">
-                <button className="btn !w-auto">Rotate all</button>
+                <button className="btn !w-auto" onClick={rotateAll}>Rotate all</button>
                 <button className="btn !w-auto !bg-gray-800" aria-label="Remove this PDF and select a new one"
-                        data-microtip-position="top" role="tooltip">
+                        data-microtip-position="top" role="tooltip" onClick={() => setPdfFile(null)}>
                     Remove PDF
                 </button>
                 <button
                     className="shadow rounded-full p-2 flex items-center justify-center hover:scale-105 grow-0 shrink-0 disabled:opacity-50 !bg-white"
-                    aria-label="Zoom in" data-microtip-position="top" role="tooltip">
+                    aria-label="Zoom in" data-microtip-position="top" role="tooltip" onClick={zoomIn}>
                     <Icon icon="prime:search-plus" width="20" height="20" style={{color: 'black'}}> </Icon>
                 </button>
                 <button
                     className="shadow rounded-full p-2 flex items-center justify-center hover:scale-105 grow-0 shrink-0 disabled:opacity-50 !bg-white"
-                    aria-label="Zoom in" data-microtip-position="top" role="tooltip">
+                    aria-label="Zoom in" data-microtip-position="top" role="tooltip" onClick={zoomOut}>
                     <Icon icon="prime:search-minus" width="20" height="20" style={{color: 'black'}}> </Icon>
                 </button>
             </div>
@@ -74,7 +85,7 @@ const FilePreview = () => {
                                             className="relative h-full w-full flex flex-col justify-between items-center shadow-md p-3 bg-white hover:bg-gray-50">
                                             <div className="pointer-events-none w-full shrink">
                                                 <Page canvasRef={canvasRef} pageNumber={index + 1} width={176} height={289}
-                                                      rotate={rotations[index]}/>
+                                                      scale={scale} rotate={rotations[index]}/>
                                             </div>
                                             <div
                                                 className="w-[90%] text-center shrink-0 text-xs italic overflow-hidden text-ellipsis whitespace-nowrap">{index + 1}</div>
