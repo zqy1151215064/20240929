@@ -3,14 +3,14 @@ import React from "react";
 import Image from "next/image";
 import favicon from '/public/favicon.ico'
 
-const SocialMediaLinks = () => {
-    const links = [
-        {href: 'https://www.tiktok.com/@pdfai', icon: 'ic:baseline-tiktok', label: 'TikTok'},
-        {href: 'https://www.instagram.com/pdfdotai/', icon: 'ant-design:instagram-outlined', label: 'Instagram'},
-        {href: 'https://twitter.com/pdfdotai', icon: 'mdi:twitter', label: 'Twitter'},
-        {href: 'https://www.youtube.com/@pdfai', icon: 'mdi:youtube', label: 'YouTube'},
-    ];
+const links = [
+    {href: 'https://www.tiktok.com/@pdfai', icon: 'ic:baseline-tiktok', label: 'TikTok'},
+    {href: 'https://www.instagram.com/pdfdotai/', icon: 'ant-design:instagram-outlined', label: 'Instagram'},
+    {href: 'https://twitter.com/pdfdotai', icon: 'mdi:twitter', label: 'Twitter'},
+    {href: 'https://www.youtube.com/@pdfai', icon: 'mdi:youtube', label: 'YouTube'},
+];
 
+const SocialMediaLinks = () => {
     return (
         <div className="flex space-x-6">
             {links.map((link) => (
@@ -53,43 +53,41 @@ const NavLinkList: React.FC<NavLinkListProps> = ({title, links}) => (
     </div>
 );
 
+const productLinks = [
+    {href: '/use-cases', label: 'Use cases'},
+    {href: '/chrome-extension', label: 'Chrome extension'},
+    {href: 'https://api.pdf.ai/', label: 'API docs'},
+    {href: 'https://pdf.ai/pricing', label: 'Pricing'},
+    {href: 'https://pdf.ai/tutorials', label: 'Video tutorials'},
+    {href: 'https://pdf.ai/resources', label: 'Resources'},
+    {href: 'https://pdf.ai/blog', label: 'Blog'},
+    {href: '/faq', label: 'FAQ'},
+];
+
+const otherLinks = [
+    {href: 'https://pdf.ai/tools/resume-ai-scanner', label: 'Resume AI Scanner'},
+    {href: 'https://pdf.ai/tools/invoice-ai-scanner', label: 'Invoice AI Scanner'},
+    {href: 'https://pdf.ai/tools/quiz-ai-generator', label: 'AI Quiz Generator'},
+    {href: 'https://quickyai.com', label: 'QuickyAI'},
+    {href: 'https://docsium.com', label: 'Docsium'},
+    {href: 'https://pdf.ai/gpts', label: 'PDF GPTs'},
+    {href: 'https://pdfgen.com', label: 'PDF AI generator'},
+    {href: 'https://pdf.ai/tools', label: 'Other PDF tools'},
+];
+
+const companyLinks = [
+    {href: '/compare/chatpdf-alternative', label: 'PDF.ai vs ChatPDF'},
+    {href: '/compare/adobe-acrobat-reader-alternative', label: 'PDF.ai vs Acrobat Reader'},
+    {href: '/privacy-policy', label: 'Legal'},
+    {href: '/affiliate-program', label: 'Affiliate program 💵'},
+    {href: '/investor', label: 'Investor'},
+];
+
 const Footer = () => {
-    const productLinks = [
-        {href: '/use-cases', label: 'Use cases'},
-        {href: '/chrome-extension', label: 'Chrome extension'},
-        {href: 'https://api.pdf.ai/', label: 'API docs'},
-        {href: 'https://pdf.ai/pricing', label: 'Pricing'},
-        {href: 'https://pdf.ai/tutorials', label: 'Video tutorials'},
-        {href: 'https://pdf.ai/resources', label: 'Resources'},
-        {href: 'https://pdf.ai/blog', label: 'Blog'},
-        {href: '/faq', label: 'FAQ'},
-    ];
-
-    const otherLinks = [
-        {href: 'https://pdf.ai/tools/resume-ai-scanner', label: 'Resume AI Scanner'},
-        {href: 'https://pdf.ai/tools/invoice-ai-scanner', label: 'Invoice AI Scanner'},
-        {href: 'https://pdf.ai/tools/quiz-ai-generator', label: 'AI Quiz Generator'},
-        {href: 'https://quickyai.com', label: 'QuickyAI'},
-        {href: 'https://docsium.com', label: 'Docsium'},
-        {href: 'https://pdf.ai/gpts', label: 'PDF GPTs'},
-        {href: 'https://pdfgen.com', label: 'PDF AI generator'},
-        {href: 'https://pdf.ai/tools', label: 'Other PDF tools'},
-    ];
-
-    const companyLinks = [
-        {href: '/compare/chatpdf-alternative', label: 'PDF.ai vs ChatPDF'},
-        {href: '/compare/adobe-acrobat-reader-alternative', label: 'PDF.ai vs Acrobat Reader'},
-        {href: '/privacy-policy', label: 'Legal'},
-        {href: '/affiliate-program', label: 'Affiliate program 💵'},
-        {href: '/investor', label: 'Investor'},
-    ];
-
-
     return (
         <footer>
             <div
                 className="mx-auto max-w-7xl px-6 pb-8 mt-8 sm:mt-12 lg:px-8 lg:mt-16 border-t border-gray-900/10 pt-16">
-
                 <div className="xl:grid xl:grid-cols-3 xl:gap-8">
                     <div className="space-y-8">
                         <Image className="h-7 w-7" src={favicon} alt="PDF.ai logo"/>
@@ -104,7 +102,6 @@ const Footer = () => {
                         <NavLinkList title="Company" links={companyLinks}/>
                     </div>
                 </div>
-
             </div>
         </footer>
     )

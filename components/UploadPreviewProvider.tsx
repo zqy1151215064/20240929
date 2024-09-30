@@ -18,7 +18,11 @@ const UploadPreviewContext = createContext<UploadPreviewContextType>({
 })
 
 export const useUploadPreviewContext = () => {
-    return useContext(UploadPreviewContext)
+    const context = useContext(UploadPreviewContext);
+    if (!context) {
+        throw new Error('useUploadPreviewContext must be used within an UploadPreviewProvider');
+    }
+    return context;
 }
 
 const UploadPreviewProvider = ({children}: PropsWithChildren) => {
